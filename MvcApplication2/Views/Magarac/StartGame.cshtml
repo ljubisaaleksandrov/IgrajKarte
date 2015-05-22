@@ -1,0 +1,247 @@
+﻿@model IgrajKarte.Models.MagaracGame
+@using IgrajKarte.Helpers;
+@using IgrajKarte;
+
+@{
+    ViewBag.Title = "StartGame";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Player playerLeft = new Player();
+    Player playerUp = new Player();
+    Player playerRight = new Player();
+    Player playerCurrent = new Player();
+
+    if (Model.Player1.Id == ViewBag.CurrentUserId)
+    {
+        playerCurrent = Model.Player1;
+        playerLeft = Model.Player2;
+        playerUp = Model.Player3;
+        playerRight = Model.Player4;
+        
+    }
+    else if (Model.Player2.Id == ViewBag.CurrentUserId)
+    {
+        playerCurrent = Model.Player2;
+        playerLeft = Model.Player3;
+        playerUp = Model.Player4;
+        playerRight = Model.Player1;
+    }
+    else if (Model.Player3.Id == ViewBag.CurrentUserId)
+    {
+        playerCurrent = Model.Player3;
+        playerLeft = Model.Player4;
+        playerUp = Model.Player1;
+        playerRight = Model.Player2;
+    }
+    else if (Model.Player4.Id == ViewBag.CurrentUserId)
+    {
+        playerCurrent = Model.Player4;
+        playerLeft = Model.Player1;
+        playerUp = Model.Player2;
+        playerRight = Model.Player3;
+    }
+
+}
+
+<div id="wrap" style="height:700px; width:100%">
+        <div id="playerLeft" style="float:left; width:20%; height:100%; position:relative" >
+
+            <div id="OCards">@CardDeck.AsList(playerLeft.CardsInHand).Count</div>
+            
+        </div>
+        <div class="tableCentral" style="float:left; width:60%; height:100%; position:relative">
+           <div id="playerUp" style="width:100%; height:150px;">
+            <div id="OName" style="width:15%; height:100%; float:left">
+                <div>Name</div>
+                <div id="OTimer">
+                    60
+                </div>
+            </div>
+            <div id="OCards" style="width:70%; height:100%; float:left">
+                        @CardDeck.AsList(playerUp.CardsInHand).Count                
+            </div>
+            <div id="OScore" style="width:15%; height:100%;  float:right">Score</div>
+        </div>
+        <div id="table" style="width:80%; height:310px; padding-left:10px; padding-top:10px; margin-left:auto; margin-right:auto">
+            
+        </div>
+        <div id="DisableCurrentUser" style="width:60%; height:30%; z-index:100; opacity:0.2; position:absolute; display:none"></div>
+        <div id="current" style="width:100%; height:150px; padding-top:10px">
+            <div id="CName" style="width:15%; height:100%; float:left">Name</div>
+            <div id="CCards" style="width:70%; height:100%; float:left">
+                @{
+                    int i = 1;
+                    List<string> cards = CardDeck.AsList(playerCurrent.CardsInHand);
+                    string padding = "5px";
+                    if(cards.Count == 4)
+                    {
+                        padding = "25px";
+                    }
+                    
+                    foreach(string s in CardDeck.AsList(playerCurrent.CardsInHand))
+                    {   
+                        string cImageId = "cc" + i.ToString();
+                        string name = "/test/Resources/Images/Card Deck/" + @s + ".jpg";
+                        <div class="tctdMag" id="@cImageId" style="padding-left:@padding; z-Index:@i">
+                            <img class="tcimgMag" src="@name"/>
+                        </div>
+                        i++;
+                    }
+                }
+            </div>
+            <div id="CScore" style="width:15%; height:100%; float:right">Score</div>
+        </div>
+        </div>
+        <div id="playerRight" style="float:left; width:20%; height:100%; position:relative">
+    
+             <div id="OCards">@CardDeck.AsList(playerRight.CardsInHand).Count</div>
+
+        </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        CheckActiveUser('@Session["ActivePlayer"]');
+    });
+
+    $(".tctdMag").mouseenter(function () {
+        if ($(this).parents().attr('id') == "CCards") {
+            var zIndex = parseInt($(this).css('zIndex'));
+            zIndex = zIndex + 100;
+            $(this).css({"zIndex": zIndex })
+        }
+        $(this).children().css({ "border-color": "#26cf00" });
+    });
+
+    $(".tctdMag").mouseleave(function () {
+        if ($(this).parents().attr('id') == "CCards") {
+            var zIndex = parseInt($(this).css('zIndex'));
+            zIndex -= 100;
+            $(this).css({ "zIndex": zIndex })
+        }
+        $(this).children().css({ "border-color": "#d6ff50"})
+    });
+
+    $(".tcimgMag").click(function () {
+        if ($(this).parents().parents().attr('id') == "CCards") {
+            var src = String($(this).attr('src'));
+            var name = $(this).attr('src').substring(33, 36).replace('.','');
+        
+            $.ajax({
+                url: "/Magarac/CardSelected/",
+                type: "POST",
+                data: { gameId: @Model.Id, cardName: name},
+                success: function (data) {
+                    if(data.status == true)
+                    {
+                        RemoveHandCard(name);
+                        UpdateNextPlayer(data.next, data.nextCards);
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                    alert(data.result);
+                }
+            });   
+        }
+        else if ($(this).parents().parents().attr('id') == "tablicTableUp" || $(this).parents().parents().attr('id') == "tablicTableDown") {
+            var src = $(this).attr('src');
+            var elementPtr = $(this);
+            if (src === undefined)
+            {}
+            else
+            {
+                var src = String($(this).attr('src'));
+                var name = $(this).attr('src').substring(33, 36).replace('.','');
+                $.ajax({
+                    url: "/Tablic/CardSelected/",
+                    type: "POST",
+                    data: { gameId: @Model.Id, cardName: name, parentElement: "tableCards"},
+                    success: function (data) {
+                        if (data.selected == true)
+                        {
+                            elementPtr.css({"border-radius": "5px"});
+                            elementPtr.parent().css({"background-color": "#aaffaa", "border-radius": "10px"});
+                        }
+                        else 
+                        {
+                            elementPtr.css({"border-radius": "none"});
+                            elementPtr.parent().css({"background-color": "white", "border-radius": "none"});
+                        }
+                    },
+                    error: function (data) {
+                        alert("error");
+                        alert(data.result);
+                    }
+                });
+            }
+        }
+    });
+
+    function AlignCards()
+    {
+        $("#")
+    }
+
+    function UpdateNextPlayer(id, cards)
+    {
+        var playerCards;
+        
+        if(id == '@playerLeft.Id')
+        {
+            '@playerLeft.CardsInHand' = cards;
+            var count = '@CardDeck.AsList(playerLeft.CardsInHand).Count';
+
+            alert(count);
+            $("#playerLeft").children().hmlt(count);
+        }
+        else if(id == '@playerUp.Id')
+        {
+            playerCards = $("#playerUp").children();
+        }
+        else if(id == '@playerRight.Id')
+        {
+            playerCards = $("#playerRight").children();
+        }
+    }
+
+    function RemoveHandCard(name)
+    {
+        var src = "/test/Resources/Images/Card Deck/" + name + ".jpg";
+        $("#CCards img").each(function ()
+        {
+            if($(this).attr('src') == src)
+            {
+                //$(this).parent().remove();
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+    $("#table").mouseenter(function () {
+
+        $(this).css({"border-radius": "5px"});
+        $(this).css({"background-color": "#aaffaa", "border-radius": "10px"});
+    });
+    
+    $("#table").mouseleave(function () {
+        $(this).css({"border-radius": "none"});
+        $(this).css({"background-color": "white", "border-radius": "none"});
+    });
+
+
+
+    
+</script>

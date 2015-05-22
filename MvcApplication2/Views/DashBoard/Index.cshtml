@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Dobro došli u svet igara</h2>
+
+<div id="wrap" style="height:700px; width:100%;">
+    <div class="chat" style="width:20%; float:left">
+        <p>Chat</p>
+    </div>
+    <div class="stats" style="width:58%; float:left">
+        <p>Statistics</p>
+    </div>
+    <div class="rooms" style="width:20%; float:right; border-style:solid; border-color:blue">
+        <p>Rooms</p>
+
+        @foreach (IgrajKarte.Room room in ViewBag.Rooms)
+        { 
+            <div>
+                @room.GameCodeName.Trim() &nbsp&nbsp&nbsp 
+                <input class="green-button" style="float:right; width:100px; text-align:center; padding:5px" type="button" value="@room.GameCodeName.Trim()" id="@room.GameId"/> <br/>
+                @if(room.PlayerIDOut.Trim().Count() == 0)
+                {
+                    <div>0</div>
+                }
+                else
+                {
+                    <div>@room.PlayerIDOut.Trim().Trim(',').Split(',').Count()</div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    <!-- Tablic 2 -->
+    $('#1').delay(3000).click(function () {
+        CheckAvailablePlayersForTablic2();
+    });
+
+    function CheckAvailablePlayersForTablic2()
+    {
+        $.ajax({
+            url: "/DashBoard/CheckAvailablePlayersForTablic2",
+            type: "POST",
+            data: { gameCode: 1 },
+            success: function (data) {
+                if (data.status == true)
+                    window.location = "/Tablic/Index/?gameId=" + data.gameId;
+                else {
+                    setTimeout(function () {
+                        //alert(data.result);
+                        CheckAvailablePlayersForTablic2();
+                    }, 1000
+                    )
+                }},
+            error: function (data) {
+                alert("error");
+                alert(data.result);
+            }
+        });
+    }
+
+
+
+    <!-- Magarac -->
+     $('#3').delay(3000).click(function () {
+         CheckAvailablePlayersForMagarac();
+     });
+
+    function CheckAvailablePlayersForMagarac()
+    {
+        $.ajax({
+            url: "/DashBoard/CheckAvailablePlayersForMagarac",
+            type: "POST",
+            data: { gameCode: 3 },
+            success: function (data) {
+                if (data.status == true)
+                    window.location = "/Magarac/Index/?gameId=" + data.gameId;
+                else {
+                    setTimeout(function () {
+                        //alert(data.result);
+                        CheckAvailablePlayersForMagarac();
+                    }, 2000
+                    )
+                }},
+            error: function (data) {
+                //alert("error");
+                //alert(data.result);
+            }
+        });
+    }
+
+
+</script>

@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace IgrajKarte.Enums
+{
+    public enum Card : int
+    {
+        P1 = 1,
+        P2 = 2,
+        P3 = 3,
+        P4 = 4,
+        P5 = 5,
+        P6 = 6,
+        P7 = 7,
+        P8 = 8,
+        P9 = 9,
+        P10 = 10,
+        P12 = 11,
+        P13 = 12,
+        P14 = 13,
+        K1 = 14,
+        K2 = 15,
+        K3 = 16,
+        K4 = 17,
+        K5 = 18,
+        K6 = 19,
+        K7 = 20,
+        K8 = 21,
+        K9 = 22,
+        K10 = 23,
+        K12 = 24,
+        K13 = 25,
+        K14 = 26,
+        T1 = 27,
+        T2 = 28,
+        T3 = 29,
+        T4 = 30,
+        T5 = 31,
+        T6 = 32,
+        T7 = 33,
+        T8 = 34,
+        T9 = 35,
+        T10 = 36,
+        T12 = 37,
+        T13 = 38,
+        T14 = 39,
+        H1 = 40,
+        H2 = 41,
+        H3 = 42,
+        H4 = 43,
+        H5 = 44,
+        H6 = 45,
+        H7 = 46,
+        H8 = 47,
+        H9 = 48,
+        H10 = 49,
+        H12 = 50,
+        H13 = 51,
+        H14 = 52,
+        D1 = 53,
+        D2 = 54,
+        D3 = 55,
+        D4 = 56
+    }
+}

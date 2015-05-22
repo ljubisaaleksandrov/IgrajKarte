@@ -1,0 +1,36 @@
+﻿body {
+}
+
+.tctd {
+     width:15%; 
+     float:left;
+     padding-left:6px;
+     position:relative;
+     z-index:1;
+}
+
+.tcimg {
+    width:100px;
+    height:132px;
+    padding-top:2px;
+    border-style:solid; 
+    border-color:#d6ff50;
+}
+
+
+.tctdMag {
+     width:15%; 
+     float:left;
+     
+     position:relative;
+     z-index:1;
+}
+
+.tcimgMag {
+    width:100px;
+    height:132px;
+    padding-top:2px;
+    border-style:solid; 
+    border-color:#d6ff50;
+}
+

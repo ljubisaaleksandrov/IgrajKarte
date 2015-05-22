@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29cbf51eb3d940b7b598e51629ef9f1b" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="EFModel.LoginSession" Width="1.5" PointX="6.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EFModel.Log" Width="1.5" PointX="8.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EFModel.User" Width="1.5" PointX="4.5" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="EFModel.fk_LoginSessions" ManuallyRouted="false" />
+        <AssociationConnector Association="EFModel.FK_LoginSessions_LoginSessions" ManuallyRouted="false" />
+        <AssociationConnector Association="EFModel.fk_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EFModel.fk_PerOrders" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EFModel.Room" Width="1.5" PointX="1.75" PointY="4.625" />
+        <EntityTypeShape EntityType="EFModel.Tablic" Width="1.5" PointX="0.5" PointY="6.625" />
+        <EntityTypeShape EntityType="EFModel.Player" Width="1.5" PointX="1.75" PointY="1.125" />
+        <EntityTypeShape EntityType="EFModel.Magarac" Width="1.5" PointX="2.375" PointY="6.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

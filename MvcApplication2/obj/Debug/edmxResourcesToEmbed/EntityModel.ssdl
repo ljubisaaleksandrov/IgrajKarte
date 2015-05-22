@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EFModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EFModelStoreContainer">
+    <EntitySet Name="LoginSessions" EntityType="EFModel.Store.LoginSessions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Logs" EntityType="EFModel.Store.Logs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="EFModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="fk_LoginSessions" Association="EFModel.Store.fk_LoginSessions">
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LoginSessions_LoginSessions" Association="EFModel.Store.FK_LoginSessions_LoginSessions">
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+      <End Role="LoginSessions1" EntitySet="LoginSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PerOrders" Association="EFModel.Store.fk_PerOrders">
+      <End Role="User" EntitySet="User" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_User" Association="EFModel.Store.fk_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="LoginSessions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Token" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateCreated" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateModified" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="SessionId" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateCreated" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Level" Type="int" />
+    <Property Name="DateCreated" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateModified" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsSuspended" Type="bit" Nullable="false" />
+    <Property Name="IsAutenticated" Type="bit" Nullable="false" />
+    <Property Name="IsVerified" Type="bit" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="fk_LoginSessions">
+    <End Role="LoginSessions" Type="EFModel.Store.LoginSessions" Multiplicity="0..1" />
+    <End Role="Logs" Type="EFModel.Store.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoginSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LoginSessions_LoginSessions">
+    <End Role="LoginSessions" Type="EFModel.Store.LoginSessions" Multiplicity="1" />
+    <End Role="LoginSessions1" Type="EFModel.Store.LoginSessions" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LoginSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginSessions1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PerOrders">
+    <End Role="User" Type="EFModel.Store.User" Multiplicity="1" />
+    <End Role="Logs" Type="EFModel.Store.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_User">
+    <End Role="User" Type="EFModel.Store.User" Multiplicity="1" />
+    <End Role="LoginSessions" Type="EFModel.Store.LoginSessions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginSessions">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,42 @@
+﻿
+<script type="text/javascript">
+    
+</script>
+@if (Session["CurrentUserId"] != null)
+{
+    if ((int)Session["CurrentUserId"] != -1)
+    {
+        if ((bool)Session["isMember"] == true)
+        {
+  
+    <ul class="menu" style="margin-top:1px">
+        <li><a href="@Url.Action("LogOut", "Account")" class="dark-gray-button" style ="margin:0; font-weight:lighter; color:white;">Logout</a></li>
+        <li><a href="@Url.Action("Index", "Transaction")">Welcome, <span style="color:#55E; font-weight:bold;">@ViewBag.Name</span></a></li>
+        <li><a href="/Account/Contact">Contact</a></li>
+        <li><a href="/Account/About">About</a></li>
+        <li><a href="/Account/HowItWorks">How it works</a></li>
+        @*<li id="@TopMenuItems.Settings"><a href="@Url.Action("Index", "Account")">Settings</a></li>*@
+    </ul>
+    
+        }
+        else if ((bool)Session["isAdministrator"] == true)
+        {
+            <ul class="menu" style="margin-top:1px">
+                <li><a href="@Url.Action("LogOut", "Account")" class="dark-gray-button" style ="margin:0; font-weight:lighter; color:white;">Logout</a></li>
+                <li><a href="@Url.Action("Index", "Transaction")">Welcome, <span style="color:#55E; font-weight:bold;">@ViewBag.Name</span></a></li>
+                @*<li id="@TopMenuItems.Settings"><a href="@Url.Action("Index", "Account")">Settings</a></li>*@
+            </ul>
+        }
+    }
+    else
+    {
+        <ul class="menu" style="margin-top:1px">
+            <li><a href="/Account/LogOn" class="brown-button" style ="font-size:12px; padding-left:15px; padding-right:15px; margin:0; font-weight:lighter; color:white; margin-left:20px">Login</a></li>
+            <li><a href="/Account/Register"  class="light-blue" style="color:#306dbe; font-size:12px;"><strong>Create an Account</strong></a></li>
+            <li><a href="/Account/Contact">Contact</a></li>
+            <li><a href="/Account/About">About</a></li>
+            <li><a href="/SalesTools/Index">Developers</a></li>
+            <li><a href="/Account/HowItWorks">How it works</a></li>
+        </ul>
+    }
+}

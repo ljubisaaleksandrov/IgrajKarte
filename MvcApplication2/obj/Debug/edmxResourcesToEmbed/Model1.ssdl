@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestDBModelStoreContainer">
+    <EntitySet Name="Korisnik" EntityType="TestDBModel.Store.Korisnik" store:Type="Tables" store:Schema="dbo" store:Name="Korisnik">
+      <DefiningQuery>SELECT 
+      [Korisnik].[id] AS [id], 
+      [Korisnik].[Ime] AS [Ime], 
+      [Korisnik].[Prezime] AS [Prezime], 
+      [Korisnik].[gRodjenja] AS [gRodjenja]
+      FROM [dbo].[Korisnik] AS [Korisnik]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TestDB.dbo.Korisnik' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Ime" Type="nchar" MaxLength="10" />
+    <Property Name="Prezime" Type="nchar" MaxLength="10" />
+    <Property Name="gRodjenja" Type="int" />
+  </EntityType>
+</Schema>

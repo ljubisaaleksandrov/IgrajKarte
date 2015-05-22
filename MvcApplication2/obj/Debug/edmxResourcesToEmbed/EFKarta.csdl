@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KartaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="KartaEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="LoginSessions" EntityType="KartaModel.LoginSession" />
+    <EntitySet Name="Logs" EntityType="KartaModel.Log" />
+    <EntitySet Name="Users" EntityType="KartaModel.User" />
+    <AssociationSet Name="fk_LoginSessions" Association="KartaModel.fk_LoginSessions">
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LoginSessions_LoginSessions" Association="KartaModel.FK_LoginSessions_LoginSessions">
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+      <End Role="LoginSessions1" EntitySet="LoginSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_User" Association="KartaModel.fk_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="LoginSessions" EntitySet="LoginSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PerOrders" Association="KartaModel.fk_PerOrders">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="LoginSession">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Token" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DateCreated" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DateModified" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Logs" Relationship="KartaModel.fk_LoginSessions" FromRole="LoginSessions" ToRole="Logs" />
+    <NavigationProperty Name="LoginSessions1" Relationship="KartaModel.FK_LoginSessions_LoginSessions" FromRole="LoginSessions" ToRole="LoginSessions1" />
+    <NavigationProperty Name="LoginSession1" Relationship="KartaModel.FK_LoginSessions_LoginSessions" FromRole="LoginSessions1" ToRole="LoginSessions" />
+    <NavigationProperty Name="User" Relationship="KartaModel.fk_User" FromRole="LoginSessions" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="SessionId" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Message" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DateCreated" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="LoginSession" Relationship="KartaModel.fk_LoginSessions" FromRole="Logs" ToRole="LoginSessions" />
+    <NavigationProperty Name="User" Relationship="KartaModel.fk_PerOrders" FromRole="Logs" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Level" Type="Int32" />
+    <Property Name="DateCreated" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DateModified" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsSuspended" Type="Boolean" />
+    <Property Name="IsAutenticated" Type="Boolean" />
+    <Property Name="IsVerified" Type="Boolean" />
+    <NavigationProperty Name="LoginSessions" Relationship="KartaModel.fk_User" FromRole="User" ToRole="LoginSessions" />
+    <NavigationProperty Name="Logs" Relationship="KartaModel.fk_PerOrders" FromRole="User" ToRole="Logs" />
+  </EntityType>
+  <Association Name="fk_LoginSessions">
+    <End Role="LoginSessions" Type="KartaModel.LoginSession" Multiplicity="0..1" />
+    <End Role="Logs" Type="KartaModel.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoginSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LoginSessions_LoginSessions">
+    <End Role="LoginSessions" Type="KartaModel.LoginSession" Multiplicity="1" />
+    <End Role="LoginSessions1" Type="KartaModel.LoginSession" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LoginSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginSessions1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_User">
+    <End Role="User" Type="KartaModel.User" Multiplicity="1" />
+    <End Role="LoginSessions" Type="KartaModel.LoginSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginSessions">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PerOrders">
+    <End Role="User" Type="KartaModel.User" Multiplicity="1" />
+    <End Role="Logs" Type="KartaModel.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

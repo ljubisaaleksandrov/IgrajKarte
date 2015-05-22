@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EFModelStoreContainer" CdmEntityContainer="EntityModel">
+    <EntitySetMapping Name="LoginSessions">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.LoginSession)">
+        <MappingFragment StoreEntitySet="LoginSessions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Log)">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="IsSuspended" ColumnName="IsSuspended" />
+          <ScalarProperty Name="IsAutenticated" ColumnName="IsAutenticated" />
+          <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Room)">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="GameCodeName" ColumnName="GameCodeName" />
+          <ScalarProperty Name="PlayerIDIn" ColumnName="PlayerIDIn" />
+          <ScalarProperty Name="PlayerIDOut" ColumnName="PlayerIDOut" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tablics">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Tablic)">
+        <MappingFragment StoreEntitySet="Tablics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="User1" ColumnName="User1" />
+          <ScalarProperty Name="User2" ColumnName="User2" />
+          <ScalarProperty Name="User3" ColumnName="User3" />
+          <ScalarProperty Name="User4" ColumnName="User4" />
+          <ScalarProperty Name="ActiveUser" ColumnName="ActiveUser" />
+          <ScalarProperty Name="Cards" ColumnName="Cards" />
+          <ScalarProperty Name="CardsInDeck" ColumnName="CardsInDeck" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="NOPlayers" ColumnName="NOPlayers" />
+          <ScalarProperty Name="SelectedCards" ColumnName="SelectedCards" />
+          <ScalarProperty Name="AvailablePositionsOnTable" ColumnName="AvailablePositionsOnTable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Player)">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CardsInHand" ColumnName="CardsInHand" />
+          <ScalarProperty Name="CardsOnHeap" ColumnName="CardsOnHeap" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Dots" ColumnName="Dots" />
+          <ScalarProperty Name="GameType" ColumnName="GameType" />
+          <ScalarProperty Name="Win_Loss" ColumnName="Win_Loss" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="PlayerStatus" ColumnName="PlayerStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Magaracs">
+      <EntityTypeMapping TypeName="EFModel.Magarac">
+        <MappingFragment StoreEntitySet="Magarac">
+          <ScalarProperty Name="T2Counter" ColumnName="T2Counter" />
+          <ScalarProperty Name="CardsInDeck" ColumnName="CardsInDeck" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ActiveUser" ColumnName="ActiveUser" />
+          <ScalarProperty Name="User4" ColumnName="User4" />
+          <ScalarProperty Name="User3" ColumnName="User3" />
+          <ScalarProperty Name="User2" ColumnName="User2" />
+          <ScalarProperty Name="User1" ColumnName="User1" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

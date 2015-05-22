@@ -1,0 +1,58 @@
+﻿@using IgrajKarte.Models;
+@model List<VocabularyEntity>
+
+@{
+    ViewBag.Title = "Words";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+<div>
+    <header>Header</header>
+</div>
+<div>
+    <h1>Search Options</h1>
+</div>
+<div>
+    <table>
+        @foreach (VocabularyEntity v in Model)
+        { 
+            <tr>
+                <td style="width:40px" onclick="callSpeach('@v.EngWord')">
+                    <img id="playBtn" src="~/Resources/Images/play.png"/>
+                </td>
+                <td style="width:200px; font-style:initial">
+                    @v.EngWord
+                </td>
+                <td style="width:200px; font-style:initial">
+                    @v.Translate
+                </td>
+                <td style="width:300px; font-style:oblique">
+                    @v.Synonym
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    function callSpeach(text) {
+        $("#playBtn").css({ "src": "none" })
+        $.ajax({
+            url: "/Vocabulary/Speak/",
+            type: "POST",
+            data: { word: text},
+                success: function (data) {
+                    if(data.status == true)
+                    {
+                        
+                    }
+                },
+                error: function (data) {
+                    
+                }
+        });
+    }
+</script>

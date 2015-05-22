@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Index</h2>
+
+<div id="test" style="color:blue">
+    Test
+</div>
+
+<h1>@ViewData["Session"]</h1>
+
+
+<script type="text/javascript">
+    $('#test').click(function () {
+        $(this).css({"color":"red"});
+    });
+</script>

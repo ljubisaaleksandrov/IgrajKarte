@@ -1,0 +1,24 @@
+﻿
+
+<div id="title">Partial View</div>
+
+<input type="button" name="Ajax" value="Ajax" onclick="get_string()" />
+
+<script type="text/javascript">
+    function get_string()
+    {
+        $.ajax({
+            url: "/Game/GetTitle",
+            type: "POST",
+            data: {val: "1"},
+            success: function (data, status) {
+                $('#title').html(data.tri);
+
+                $("#title").css({"color":"red"});
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    }
+</script>
